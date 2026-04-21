@@ -372,6 +372,76 @@ function editorialReveals() {
 }
 
 // ============================================================
+// Booking section — reveal circles + handle form submit
+// ============================================================
+function initBooking() {
+  const flow = document.querySelector('.book__flow');
+  if (flow) {
+    // Stagger circle reveal
+    gsap.set('.book__step .book__circle', { clearProps: 'all' });
+    ScrollTrigger.create({
+      trigger: '.book__flow',
+      start: 'top 82%',
+      onEnter: () => {
+        flow.classList.add('is-in');
+        document.querySelectorAll('.book__step').forEach((step, i) => {
+          setTimeout(() => step.classList.add('is-in'), i * 120);
+        });
+      }
+    });
+  }
+
+  const form = document.getElementById('book-form');
+  const thanks = document.getElementById('book-thanks');
+  if (!form) return;
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    const lang = document.documentElement.getAttribute('lang') || 'en';
+    const isKr = lang === 'ko';
+
+    // Build a clean email body
+    const L = isKr
+      ? { name: '이름', email: '이메일', phone: '전화 / 카카오톡', service: '서비스', date: '희망 날짜', location: '희망 장소', message: '메시지', subject: '[usherin making] 예약 문의 — ', greet: '안녕하세요,', sign: '감사합니다.' }
+      : { name: 'Name', email: 'Email', phone: 'Phone / KakaoTalk', service: 'Service', date: 'Preferred date', location: 'Location idea', message: 'Message', subject: '[usherin making] Booking enquiry — ', greet: 'Hello,', sign: 'Thank you.' };
+
+    const body = [
+      L.greet,
+      '',
+      `${L.name}: ${data.name || '-'}`,
+      `${L.email}: ${data.email || '-'}`,
+      `${L.phone}: ${data.phone || '-'}`,
+      `${L.service}: ${data.service || '-'}`,
+      `${L.date}: ${data.date || '-'}`,
+      `${L.location}: ${data.location || '-'}`,
+      '',
+      `${L.message}:`,
+      data.message || '',
+      '',
+      L.sign,
+      data.name || ''
+    ].join('\n');
+
+    const subject = L.subject + (data.name || '');
+    const mailto = `mailto:hello@usherinmaking.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Open email client
+    window.location.href = mailto;
+
+    // Show in-page thanks + disable button
+    if (thanks) thanks.hidden = false;
+    const btn = form.querySelector('button[type="submit"]');
+    if (btn) btn.setAttribute('disabled', 'disabled');
+  });
+}
+
+// ============================================================
 // Footer huge word parallax
 // ============================================================
 function footerParallax() {
@@ -410,6 +480,7 @@ async function boot() {
     buildFeed();
     await buildJournal();
     await buildShowcase();
+    initBooking();
     footerParallax();
     ScrollTrigger.refresh();
   });

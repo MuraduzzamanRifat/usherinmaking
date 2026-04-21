@@ -1168,3 +1168,300 @@ html[lang="ko"] .editorial__text h3 em {
     font-size: 10px;
   }
 }
+
+/* ============================================================
+   Booking — Reservation steps + Inquire form
+   ============================================================ */
+.book {
+  padding: 140px var(--edge);
+  border-top: 1px solid var(--rule);
+  background:
+    linear-gradient(180deg, #faf3ed 0%, var(--bg) 70%);
+}
+
+/* --- Steps --- */
+.book__steps {
+  max-width: 1200px;
+  margin: 0 auto 110px;
+  text-align: center;
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+}
+.book__title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--blush);
+}
+.book__sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: var(--ink-2);
+  max-width: 52ch;
+  margin-bottom: 48px;
+}
+
+.book__flow {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 2vw, 32px);
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.book__step {
+  display: block;
+}
+.book__circle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: 6px;
+  width: clamp(130px, 14vw, 190px);
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #eddad1 0%, #e4c9bf 60%, #d8b5a8 100%);
+  color: var(--ink);
+  box-shadow:
+    0 20px 30px -20px rgba(199,153,138,0.55),
+    0 6px 14px -6px rgba(28,23,18,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+  transform: translateY(40px);
+  opacity: 0;
+  transition: transform 0.9s var(--ease-out), opacity 0.9s var(--ease-out), box-shadow 0.4s var(--ease);
+}
+.book__step.is-in .book__circle { transform: translateY(0); opacity: 1; }
+.book__circle:hover {
+  box-shadow:
+    0 28px 36px -20px rgba(199,153,138,0.7),
+    0 10px 18px -6px rgba(28,23,18,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+}
+.book__n {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: rgba(28,23,18,0.55);
+}
+.book__label {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(11px, 1vw, 14px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.book__label--two { line-height: 1.15; }
+
+.book__arrow {
+  width: clamp(18px, 1.8vw, 28px);
+  height: clamp(18px, 1.8vw, 28px);
+  color: var(--ink-3);
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.book__flow.is-in .book__arrow { opacity: 1; transform: translateX(0); }
+
+@media (max-width: 820px) {
+  .book__flow { gap: 12px; }
+  .book__arrow { display: none; }
+  .book__circle { width: min(44vw, 180px); }
+}
+
+/* --- Form --- */
+.book__form-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+}
+.book__form-head {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+.book__form-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.book__form-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+.book__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 32px;
+}
+.field { display: grid; gap: 8px; }
+.field--wide { grid-column: 1 / -1; }
+.field label {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.field label i {
+  color: var(--blush);
+  font-style: normal;
+  margin-left: 2px;
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--ink);
+  outline: none;
+  cursor: none;
+  font-variant-numeric: tabular-nums;
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+.field select {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none'><path d='M6 9l6 6 6-6' stroke='%231c1712' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  padding-right: 28px;
+}
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--ink-3);
+  font-style: italic;
+}
+.field textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.55;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--blush);
+  color: var(--ink);
+}
+.field input:-webkit-autofill {
+  -webkit-text-fill-color: var(--ink);
+  transition: background-color 5000s;
+}
+.field input[type="date"] { font-family: var(--sans); font-size: 15px; }
+@media (max-width: 640px) {
+  .book__form { grid-template-columns: 1fr; }
+}
+
+.book__submit {
+  margin-top: 12px;
+  display: grid;
+  gap: 16px;
+  align-items: center;
+}
+.book__consent {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+.btn-primary {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 28px;
+  background: var(--ink);
+  color: var(--bg);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  cursor: none;
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease), color 0.3s var(--ease);
+}
+.btn-primary svg {
+  width: 16px; height: 16px;
+  transition: transform 0.4s var(--ease);
+}
+.btn-primary:hover {
+  background: var(--blush);
+  border-color: var(--blush);
+  color: var(--ink);
+}
+.btn-primary:hover svg { transform: translateX(4px); }
+.btn-primary[disabled] { opacity: 0.5; pointer-events: none; }
+
+.book__thanks {
+  grid-column: 1 / -1;
+  padding: 28px 32px;
+  border: 1px solid var(--blush);
+  border-radius: 4px;
+  background: #f6e6de;
+  color: var(--ink);
+  gap: 10px;
+  animation: thanks-in 0.6s var(--ease-out);
+}
+.book__thanks[hidden] { display: none !important; }
+.book__thanks:not([hidden]) { display: grid; }
+.book__thanks h4 {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--blush);
+}
+.book__thanks p {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+@keyframes thanks-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* KR-mode: switch form typography to Noto Sans KR for clearer Hangul */
+html[lang="ko"] .field input,
+html[lang="ko"] .field select,
+html[lang="ko"] .field textarea,
+html[lang="ko"] .book__sub,
+html[lang="ko"] .book__form-sub,
+html[lang="ko"] .book__consent,
+html[lang="ko"] .book__thanks p,
+html[lang="ko"] .book__thanks h4 {
+  font-family: 'Noto Sans KR', var(--serif);
+  font-style: normal;
+}
+html[lang="ko"] .book__form-title {
+  font-family: 'Noto Sans KR', var(--serif);
+  font-weight: 500;
+}
